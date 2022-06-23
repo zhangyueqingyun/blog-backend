@@ -1,5 +1,10 @@
 import {Injectable} from '@nestjs/common'
+import {InjectRepository} from '@nestjs/typeorm'
+import {Repository} from 'typeorm'
+import {ProfileEntity} from './entity'
+
 export interface Profile  {
+  id: number,
   avatar: String,
   name: String,
   mail: String,
@@ -8,17 +13,27 @@ export interface Profile  {
     en: String
   }
 }
+
+function entityToView(profile): Profile {
+  const {feeling_ch, feeling_en, ...rest} = profile
+  rest.feeling = {
+    ch: feeling_ch,
+    en: feeling_en
+  }
+  return rest
+}
+
+
 @Injectable()
 export class ProfileService {
-  getProfile(): Profile {
-    return {
-      avatar: 'https://zblog-images.oss-cn-hangzhou.aliyuncs.com/avatar.jpeg',
-      name: '张玥卿云',
-      mail: 'zhangyueqingyun@foxmail.com',
-      feeling: {
-        ch: '追梦,成为世界一流的程序员',
-        en: 'Chasing my dream. To be the best programmer all over the world.'
-      }
-    }
+  constructor(
+    @InjectRepository(ProfileEntity)
+    private profileRepositry: Repository<ProfileEntity>
+  ){}
+
+  async getProfile(): Promise<Profile> {
+    const profile = await this.profileRepositry.find()
+    console.log(profile)
+    return entityToView(profile)
   }
 }
