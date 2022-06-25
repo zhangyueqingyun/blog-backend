@@ -33,7 +33,6 @@ export class ProfileService {
 
   async getProfile(): Promise<Profile> {
     const profile = await this.profileRepositry.find()
-    console.log(profile)
     return entityToView(profile)
   }
 }

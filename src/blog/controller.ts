@@ -5,9 +5,9 @@ import {ResponseUtil, Response} from '@/utils/response'
 export class BlogController {
     constructor(private readonly blogService: BlogService, private readonly responseUtil: ResponseUtil){}
     
-    @Get('categories')
-    getCategories(): Response {
-        const categories = this.blogService.getCategorys()
+    @Get('news')
+    async getCategories(): Promise<Response> {
+        const categories = await this.blogService.getNews()
         return this.responseUtil.getResponse(categories)
     }
 }

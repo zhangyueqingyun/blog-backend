@@ -1,68 +1,65 @@
 import {Injectable} from '@nestjs/common'
+import {InjectRepository} from '@nestjs/typeorm'
+import {Repository} from 'typeorm'
+import {BlogEntity} from './entities/blog'
+import {CategoryEntity} from './entities/category'
+import {SignEntity} from './entities/sign'
 
-export interface Label {
-    id: String,
+export interface Sign {
+    id: number,
     name: String,
+    icon: string
 }
 
 export interface Blog {
-    id: String,
+    id: number,
     title: String,
     description: String,
-    date: String,
-    labels: Label[]
+    datetime: String,
+    content: string,
+    sign: string
 }
 
 export interface Category {
-    id: String,
+    id: number,
     name: String,
-    blogs: Blog[]
+    icon: string,
+    blogs?: Blog
 }
+
+export interface News {
+
+}
+
 
 @Injectable()
 export class BlogService {
-    getCategorys(): Category[] {
-        return [{
-            id: 'technich',
-            name: '技术',
-            blogs: [
-                {
-                    id: 'asdfsdfsfd',
-                    title: '几句话说清浏览器渲染过程',
-                    description: 'Webkit 是 Safari 浏览器的内核（渲染引擎），由苹果公司开发，负责将网页数据渲染为图像。',
-                    date: '2022-06-21 10:24:00',
-                    labels: [{
-                        id: 'webkit',
-                        name: 'Webkit'
-                    }]
-                },
-                {
-                    id: 'asdfsdfsfd22',
-                    title: '几句话说清浏',
-                    description: '由苹果公司开发，负责将网页数据渲染为图像。',
-                    date: '2022-06-22 10:14:00',
-                    labels: [{
-                        id: 'webkit1',
-                        name: 'Webkit'
-                    }]
-                }
-            ]
-        },
-        {
-            id: 'technich2',
-            name: '生活',
-            blogs: [
-                {
-                    id: 'asdfsdfsfd',
-                    title: '几句话说清浏览器渲染过程',
-                    description: 'Webkit 是 Safari 浏览器的内核（渲染引擎），由苹果公司开发，负责将网页数据渲染为图像。',
-                    date: '2022-06-21 10:24:00',
-                    labels: [{
-                        id: 'webkit',
-                        name: 'Webkit'
-                    }]
-                }
-            ]
-        }]
+    constructor(
+        @InjectRepository(BlogEntity)
+        private blogRepository: Repository<BlogEntity>,
+        @InjectRepository(CategoryEntity)
+        private categoryRepository: Repository<CategoryEntity>,
+        @InjectRepository(SignEntity)
+        private signRepository: Repository<SignEntity>
+    ){}
+
+    async getNews(): Promise<any>{
+        const [blogs, categories, signs] = await Promise.all([
+            this.blogRepository.find(), 
+            this.getCategories(),
+            this.getSigns()
+        ])
+
+        return {
+            blogs, categories, signs
+        }
+    }
+
+    async getSigns():Promise<any>{
+        return this.signRepository.find()
+    }
+
+    async getCategories(): Promise<any>{
+        return this.categoryRepository.find()
     }
 }
