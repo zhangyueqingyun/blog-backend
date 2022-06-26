@@ -22,9 +22,9 @@ export class BlogEntity extends BaseEntity {
 
     @Column({
         type: 'int',
-        name: 'category'
+        name: 'categoryId'
     })
-    category: number
+    categoryId: number
 
     @Column({
         type: 'char',
@@ -41,7 +41,7 @@ export class BlogEntity extends BaseEntity {
 
     @Column({
         type: 'char',
-        name: 'sign'
+        name: 'signIds'
     })
-    sign: string
+    signIds: string
 }
