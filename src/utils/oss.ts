@@ -1,5 +1,5 @@
 import OSS from 'ali-oss'
-import {ossConf} from '../../config/oss'
+import {ossLocalConf} from '@/config/oss'
 
 export class BlogStorage{
     client: any
@@ -8,7 +8,7 @@ export class BlogStorage{
     }
 
     init () {
-        this.client = new OSS(ossConf)
+        this.client = new OSS(ossLocalConf)
     }
 
     async get (name) {
