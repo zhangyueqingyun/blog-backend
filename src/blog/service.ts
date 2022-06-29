@@ -4,6 +4,7 @@ import {Repository} from 'typeorm'
 import {BlogEntity} from './entities/blog'
 import {CategoryEntity} from './entities/category'
 import {SignEntity} from './entities/sign'
+import {BlogStorage} from '@/utils/oss'
 
 export interface Sign {
     id: number,
@@ -16,7 +17,7 @@ export interface Blog {
     title: String,
     description: String,
     datetime: String,
-    content: string,
+    filename: string,
     sign: string
 }
 
@@ -40,7 +41,8 @@ export class BlogService {
         @InjectRepository(CategoryEntity)
         private categoryRepository: Repository<CategoryEntity>,
         @InjectRepository(SignEntity)
-        private signRepository: Repository<SignEntity>
+        private signRepository: Repository<SignEntity>,
+        private readonly blogStorage: BlogStorage
     ){}
 
     async getNews(): Promise<any>{
@@ -56,11 +58,15 @@ export class BlogService {
     }
 
     async getBlogById(id: number): Promise<any>{
-        const result = this.blogRepository.findOne({where:{id}})
-        return result
+        const result = await this.blogRepository.findOne({where:{id}})
+        const content = await this.blogStorage.get(result.ossPath)
+        return {
+            ...result,
+            content: content.toString()
+        }
     }
 
-    async getSigns():Promise<any>{
+    async getSigns(): Promise<any>{
         return this.signRepository.find()
     }
 

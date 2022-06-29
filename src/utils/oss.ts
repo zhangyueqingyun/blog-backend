@@ -1,7 +1,9 @@
-import OSS from 'ali-oss'
+const OSS = require('ali-oss')
 import {ossLocalConf} from '@/config/oss'
+import {Injectable} from '@nestjs/common'
 
-export class BlogStorage{
+@Injectable()
+export class BlogStorage {
     client: any
     constructor() {
         this.init()
@@ -11,9 +13,10 @@ export class BlogStorage{
         this.client = new OSS(ossLocalConf)
     }
 
-    async get (name) {
+    async get (ossPath: string) {
         try {
-            const {content} = await this.client.get(name)
+            const {content} = await this.client.get(ossPath)
+            return content.toString()
         } catch (e){
             console.error(e)
         }

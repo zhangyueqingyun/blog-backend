@@ -28,9 +28,9 @@ export class BlogEntity extends BaseEntity {
 
     @Column({
         type: 'char',
-        name: 'content'
+        name: 'ossPath'
     })
-    content: string
+    ossPath: string
 
     
     @Column({
