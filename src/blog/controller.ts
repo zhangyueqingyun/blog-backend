@@ -1,8 +1,8 @@
-import {Controller, Get} from '@nestjs/common'
+import {Controller, Get, Param} from '@nestjs/common'
 import {BlogService} from '@/blog/service'
 import {ResponseUtil, Response} from '@/utils/response'
 
-@Controller()
+@Controller('blog')
 export class BlogController {
     constructor(private readonly blogService: BlogService, private readonly responseUtil: ResponseUtil){}
     
@@ -16,6 +16,12 @@ export class BlogController {
         })
 
         return this.responseUtil.getResponse(result)
+    }
+
+    @Get(':id')
+    async getBlogById(@Param('id') id: number){
+        const blog = await this.blogService.getBlogById(id)
+        return this.responseUtil.getResponse(blog)
     }
 }
 

@@ -55,6 +55,11 @@ export class BlogService {
         }
     }
 
+    async getBlogById(id: number): Promise<any>{
+        const result = this.blogRepository.findOne({where:{id}})
+        return result
+    }
+
     async getSigns():Promise<any>{
         return this.signRepository.find()
     }
