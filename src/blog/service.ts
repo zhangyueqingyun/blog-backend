@@ -57,6 +57,11 @@ export class BlogService {
         }
     }
 
+    async createBlog(createBlogDto) {
+        const blog = this.blogRepository.create(createBlogDto)
+        await this.blogRepository.save(createBlogDto)
+    }
+
     async getBlogById(id: number): Promise<any>{
         const result = await this.blogRepository.findOne({where:{id}})
         const content = await this.blogStorage.get(result.ossPath)

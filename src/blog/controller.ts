@@ -1,4 +1,4 @@
-import {Controller, Get, Param} from '@nestjs/common'
+import {Controller, Get, Post, Param, Body} from '@nestjs/common'
 import {BlogService} from '@/blog/service'
 import {ResponseUtil, Response} from '@/utils/response'
 
@@ -11,18 +11,34 @@ export class BlogController {
         const {blogs, categories, signs} = await this.blogService.getNews()
         const categoriedBlogs = getCategoriedBlogs(blogs, signs)
 
-        const result = categories.filter(category => {
+        const data = categories.filter(category => {
             return !!(category.blogs = categoriedBlogs[category.id])
         })
 
-        return this.responseUtil.getResponse(result)
+        return this.responseUtil.getResponse({data})
     }
 
     @Get(':id')
     async getBlogById(@Param('id') id: number){
         const blog = await this.blogService.getBlogById(id)
-        return this.responseUtil.getResponse(blog)
+        return this.responseUtil.getResponse({data: blog})
     }
+
+    @Post('add')
+    async addBlog(@Body() createBlogDto: CreateBlogDto) {
+        await this.blogService.createBlog(createBlogDto)
+        return this.responseUtil.getResponse({message: '新增成功'})
+    }
+}
+
+interface CreateBlogDto {
+    title: String,
+    description: String,
+    datetime: String,
+    ossPath: String,
+    signIds: String,
+    categoryId: String,
+    id?: number
 }
 
 function mapSignsToBlog(blog, signs){

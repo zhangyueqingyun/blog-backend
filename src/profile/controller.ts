@@ -9,6 +9,6 @@ export class ProfileController {
     @Get('profile')
     async getProfile(): Promise<Response> {
         const profile = await this.profileService.getProfile()
-        return this.responseUtil.getResponse(profile)
+        return this.responseUtil.getResponse({data: profile})
     }
 }
