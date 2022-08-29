@@ -1,5 +1,5 @@
 const OSS = require('ali-oss')
-import {ossLocalConf} from '@/config/oss'
+import {ossLocalConf} from '@/_config/oss'
 import {Injectable} from '@nestjs/common'
 
 @Injectable()

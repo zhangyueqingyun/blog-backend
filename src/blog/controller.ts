@@ -1,22 +1,15 @@
-import {Controller, Get, Post, Param, Body} from '@nestjs/common'
-import {BlogService} from '@/blog/service'
-import {ResponseUtil, Response} from '@/utils/response'
+import { Controller, Get, Post, Param, Body } from '@nestjs/common';
+import { ResponseUtil, Response } from '@/utils/response';
+
+import { BlogService } from './service';
+import { CategoryService } from '@/category/service';
 
 @Controller('blog')
 export class BlogController {
-    constructor(private readonly blogService: BlogService, private readonly responseUtil: ResponseUtil){}
-    
-    @Get('news')
-    async getCategories(): Promise<Response> {
-        const {blogs, categories, signs} = await this.blogService.getNews()
-        const categoriedBlogs = getCategoriedBlogs(blogs, signs)
-
-        const data = categories.filter(category => {
-            return !!(category.blogs = categoriedBlogs[category.id])
-        })
-
-        return this.responseUtil.getResponse({data})
-    }
+    constructor(
+        private readonly blogService: BlogService,
+        private readonly responseUtil: ResponseUtil
+    ){}
 
     @Get(':id')
     async getBlogById(@Param('id') id: number){

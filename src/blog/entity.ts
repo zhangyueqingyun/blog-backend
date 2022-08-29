@@ -6,42 +6,41 @@ export class BlogEntity extends BaseEntity {
         type: 'int',
         name: 'id'
     })
-    id: number
+    id: number;
 
     @Column({
         type: 'char',
         name: 'title'
     })
-    title: string
+    title: string;
 
     @Column({
         type: 'char',
         name: 'description'
     })
-    description: string
-
-    @Column({
-        type: 'int',
-        name: 'categoryId'
-    })
-    categoryId: number
+    description: string;
 
     @Column({
         type: 'char',
         name: 'ossPath'
     })
-    ossPath: string
-
+    ossPath: string;
     
     @Column({
         type: 'datetime',
         name: 'datetime'
     })
-    datetime: string
+    datetime: string;
 
     @Column({
         type: 'char',
         name: 'signIds'
     })
-    signIds: string
+    signIds: string;
+    
+    @Column({
+        type: 'int',
+        name: 'categoryId'
+    })
+    categoryId: number;
 }
