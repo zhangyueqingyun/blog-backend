@@ -18,4 +18,15 @@ export class CategoryService {
   async getCategoriesByIds(ids: number []): Promise<CategoryEntity []> {
     return this.categoryRepositry.find({where: ids.map(id => ({id}))});
   }
+
+  async getCategoryPath(id: number) {
+    const path = [];
+    let categoryId: number = id;
+    while(categoryId !== -1) {
+      const category = await this.categoryRepositry.findOne({where: {id: categoryId}});
+      path.push(category);
+      categoryId = category.parentId;
+    }
+    return path;
+  }
 }
