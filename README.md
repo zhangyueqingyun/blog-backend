@@ -30,4 +30,4 @@ export const mysqlLocalConf: any = {
 /api/news  | 获取最新内容 
 /api/category/path/:categoryId | 获取类别路径
 /api/blog/path/:blogId | 获取博客路径
-
+/api/navigation | 获取导航信息

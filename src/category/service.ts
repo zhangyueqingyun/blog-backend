@@ -10,7 +10,7 @@ export class CategoryService {
     private categoryRepositry: Repository<CategoryEntity>
   ){}
 
-  async getResoucesByParentId(parentId: number): Promise<CategoryEntity []> {
+  async getCategoriesByParentId(parentId: number): Promise<CategoryEntity []> {
     const categories = await this.categoryRepositry.find({where:{parentId}})
     return categories
   }

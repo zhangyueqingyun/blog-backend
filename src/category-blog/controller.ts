@@ -15,7 +15,7 @@ export class CategoryController {
     @Get('category/:parentId')
     async getResoucesByParentId(@Param('parentId') parentId: number ): Promise<Response> {
         const [categories, blogs] = await Promise.all([
-            this.categoryService.getResoucesByParentId(parentId),
+            this.categoryService.getCategoriesByParentId(parentId),
             this.blogService.getBlogsByCategoryId(parentId)
         ]);
         return this.responseUtil.getResponse({data: {categories, blogs}});
@@ -47,6 +47,16 @@ export class CategoryController {
             category.blogs.push(blog);
         }
 
+        return this.responseUtil.getResponse({data: categories});
+    }
+
+    @Get('navigation')
+    async getNavigation(): Promise<Response> {
+        let categories: any = await this.categoryService.getCategoriesByParentId(-1);
+        categories = categories.map(category => ({
+            id: category.id,
+            name: category.name,
+        }))
         return this.responseUtil.getResponse({data: categories});
     }
 }
