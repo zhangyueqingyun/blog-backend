@@ -22,7 +22,7 @@ export const mysqlLocalConf: any = {
 
 ## 2. 已有接口
 
-api | 描述 
+接口 | 描述 
 ---- | ---- 
 /api/profile | 获取个人信息 
 /api/blog/:id | 获取某一篇博客内容 
