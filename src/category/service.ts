@@ -20,13 +20,18 @@ export class CategoryService {
   }
 
   async getCategoryPath(id: number) {
-    const path = [];
+    const path: any = [];
     let categoryId: number = id;
     while(categoryId !== -1) {
       const category = await this.categoryRepositry.findOne({where: {id: categoryId}});
       path.push(category);
       categoryId = category.parentId;
     }
-    return path;
+
+    return  path.reverse().map(category => ({
+      id: category.id,
+      type: 'category',
+      name: category.name
+    }));
   }
 }

@@ -4,7 +4,7 @@ import { ResponseUtil, Response } from '@/utils/response';
 import { CategoryService } from '@/category/service';
 import { BlogService } from '@/blog/service';
 
-@Controller('common')
+@Controller('cb')
 export class CategoryController {
     constructor(
             private readonly categoryService: CategoryService, 
@@ -12,7 +12,7 @@ export class CategoryController {
             private readonly responseUtil: ResponseUtil
     ) {}
 
-    @Get('directory/:parentId')
+    @Get('category/:parentId')
     async getResoucesByParentId(@Param('parentId') parentId: number ): Promise<Response> {
         const [categories, blogs] = await Promise.all([
             this.categoryService.getResoucesByParentId(parentId),
@@ -21,6 +21,17 @@ export class CategoryController {
         return this.responseUtil.getResponse({data: {categories, blogs}});
     }
 
+    @Get('blog/path/:blogId')
+    async getBlogPath(@Param('blogId') blogId: number): Promise<Response> {
+        const blog = await this.blogService.getBlogById(blogId);
+        const path = await this.categoryService.getCategoryPath(blog.parentId);
+        path.push({
+            id: blog.id, 
+            type: 'blog',
+            name: blog.title
+        });
+        return this.responseUtil.getResponse({data: path});  
+    }
         
     @Get('news')
     async getCategories(): Promise<Response> {

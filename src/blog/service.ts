@@ -30,6 +30,10 @@ export class BlogService {
         }
     }
 
+    async getBlogInfoById(id: number): Promise<any> {        
+        return this.blogRepository.findOne({where:{id}});
+    }
+
     async getBlogsByCategoryId(categoryId: number): Promise<any> {
         return this.blogRepository.find({where:{categoryId}});
     }
