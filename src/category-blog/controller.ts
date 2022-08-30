@@ -42,7 +42,7 @@ export class CategoryController {
 
     @Get('blog/path/:blogId')
     async getBlogPath(@Param('blogId') blogId: number): Promise<Response> {
-        const blog = await this.blogService.getBlogById(blogId);
+        const blog = await this.blogService.getBlogInfoById(blogId);
         const path = await this.categoryService.getCategoryPath(blog.parentId);
         path.push({
             id: blog.id, 
