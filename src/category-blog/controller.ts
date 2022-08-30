@@ -4,7 +4,7 @@ import { ResponseUtil, Response } from '@/utils/response';
 import { CategoryService } from '@/category/service';
 import { BlogService } from '@/blog/service';
 
-@Controller('cb')
+@Controller()
 export class CategoryController {
     constructor(
             private readonly categoryService: CategoryService, 
