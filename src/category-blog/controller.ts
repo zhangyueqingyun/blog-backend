@@ -18,7 +18,26 @@ export class CategoryController {
             this.categoryService.getCategoriesByParentId(parentId),
             this.blogService.getBlogsByCategoryId(parentId)
         ]);
-        return this.responseUtil.getResponse({data: {categories, blogs}});
+
+        const data = [];
+
+        for(const category of categories) {
+            data.push({
+                id: category.id,
+                type: 'category',
+                name: category.name           
+            });
+        }
+
+        for(const blog of blogs) {
+            data.push({
+                type: 'blog',
+                name: blog.title,
+                ...blog
+            });
+        }
+
+        return this.responseUtil.getResponse({data});
     }
 
     @Get('blog/path/:blogId')
