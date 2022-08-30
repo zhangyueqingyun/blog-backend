@@ -22,29 +22,17 @@ export const mysqlLocalConf: any = {
 
 ## 2. 已有接口
 
-1. 获取个人信息
+1. 获取个人信息: /api/profile 
 
-/api/profile 
+2. 获取某一篇博客内容: /api/blog/:id
 
-2. 获取某一篇博客内容
+3. 新增一篇博客: /api/blog/add
 
-/api/blog/:id
+4. 获取某类别下的所有类别及博客: /api/category/:parentId 
 
-3. 新增一篇博客
+5. 获取最新的博客内容: /api/news 
 
-/api/blog/add
+6. 获取类别路径: /api/category/path/:categoryId
 
-4. 获取某类别下的所有类别及博客
-
-/api/category/:parentId 
-
-5. 获取最新的博客内容
-
-/api/news 
-
-6. 获取类别路径
-/api/category/path/:categoryId 
-
-7. 获取博客路径
-/api/blog/path/:blogId
+7. 获取博客路径: /api/blog/path/:blogId
 
