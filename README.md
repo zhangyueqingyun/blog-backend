@@ -26,8 +26,14 @@ export const mysqlLocalConf: any = {
 ---- | ---- 
 /api/profile | 获取个人信息 
 /api/blog/:id | 获取某一篇博客内容 
-/api/category/:parentId  | 获取某类别下的所有类别及博客
-/api/news  | 获取最新内容 
-/api/category/path/:categoryId | 获取类别路径
+/api/blog/add | 新增博客
+/api/blog/edit | 编辑博客
+/api/blog/delete/:id | 删除博客
 /api/blog/path/:blogId | 获取博客路径
+/api/category/:parentId  | 获取某类别下的所有类别及博客
+/api/category/path/:categoryId | 获取类别路径
+/api/category/add | 新增分类
+/api/category/add | 编辑分类分类
+/api/category/delete | 删除分类
+/api/news  | 获取最新内容 
 /api/navigation | 获取导航信息
