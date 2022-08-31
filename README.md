@@ -25,6 +25,8 @@ export const mysqlLocalConf: any = {
 接口 | 描述 
 ---- | ---- 
 /api/profile | 获取个人信息 
+/api/navigation | 获取导航信息
+/api/news | 获取最新内容 
 /api/blog/:id | 获取某一篇博客内容 
 /api/blog/add | 新增博客
 /api/blog/edit | 编辑博客
@@ -35,5 +37,3 @@ export const mysqlLocalConf: any = {
 /api/category/add | 新增分类
 /api/category/add | 编辑分类分类
 /api/category/delete | 删除分类
-/api/news  | 获取最新内容 
-/api/navigation | 获取导航信息
