@@ -17,14 +17,12 @@ export class CategoryController {
 
     @Post('add')
     async addBlog(@Body() createCategoryDto: CreateCategoryDto) {
-        console.log('createCategoryDto', createCategoryDto);
         await this.categoryService.updateCategory(createCategoryDto)
         return this.responseUtil.getResponse({message: '新增成功'})
     }
 
     @Post('edit')
     async editBlog(@Body() createCategoryDto: CreateCategoryDto) {
-        console.log('createCategoryDto', createCategoryDto);
         await this.categoryService.updateCategory(createCategoryDto)
         return this.responseUtil.getResponse({message: '编辑成功'})
     }

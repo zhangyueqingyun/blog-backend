@@ -55,15 +55,16 @@ export class CategoryController {
     @Get('news')
     async getCategories(): Promise<Response> {
         const blogs = await this.blogService.getNews();
-        
         const categories = await this.categoryService.getCategoriesByIds(
-            blogs.map(blog => blog.categoryId)
+            blogs?.map(blog => blog.categoryId) || []
         );
 
         for(let blog of blogs) {
             const category: any = categories.find((category) => (category.id === blog.categoryId));
-            category.blogs ??= [];
-            category.blogs.push(blog);
+            if(category) {
+                category.blogs ??= [];
+                category.blogs.push(blog);
+            }
         }
 
         return this.responseUtil.getResponse({data: categories});
