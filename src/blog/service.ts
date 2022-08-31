@@ -16,8 +16,8 @@ export class BlogService {
         return this.blogRepository.find()
     }
 
-    async createBlog(createBlogDto) {
-        const blog = this.blogRepository.create(createBlogDto)
+    async updateBlog(createBlogDto) {
+        this.blogRepository.create(createBlogDto)
         await this.blogRepository.save(createBlogDto)
     }
 
@@ -36,5 +36,9 @@ export class BlogService {
 
     async getBlogsByCategoryId(categoryId: number): Promise<any> {
         return this.blogRepository.find({where:{categoryId}});
+    }
+  
+    async deleteBlog(id: number) {
+        this.blogRepository.delete(id);
     }
 }

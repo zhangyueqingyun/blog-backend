@@ -34,4 +34,13 @@ export class CategoryService {
       name: category.name
     }));
   }
+
+  async updateCategory(createCategoryDto) {
+    this.categoryRepositry.create(createCategoryDto)
+    await this.categoryRepositry.save(createCategoryDto)
+  }
+
+  async deleteCategory(id: number) {
+    this.categoryRepositry.delete(id);
+  }
 }
