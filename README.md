@@ -24,20 +24,20 @@ export const mysqlLocalConf: any = {
 
 方法 | 接口 | 描述 | 是否需要权限
 ---- | ---- | ---- | ----
-POST | /api/auth/login | 登录 | 
-GET | /api/profile | 获取个人信息 |
-GET | /api/navigation | 获取导航信息 |
-GET | /api/news | 获取最新内容 | 
-GET | /api/blog/:id | 获取某一篇博客内容 |
+POST | /api/auth/login | 登录 | 是
+GET | /api/profile | 获取个人信息 | 是
+GET | /api/navigation | 获取导航信息 | 是
+GET | /api/news | 获取最新内容 | 是
+GET | /api/blog/:id | 获取某一篇博客内容 | 是
 POST | /api/blog/add | 新增博客 | 否
 POST | /api/blog/edit | 编辑博客 | 否
 POST | /api/blog/delete/:id | 删除博客 | 否
-GET | /api/blog/path/:blogId | 获取博客路径 |
-GET | /api/category/:parentId  | 获取某类别下的所有类别及博客 | 
-GET | /api/category/path/:categoryId | 获取类别路径 | 
-POST | /api/category/add | 新增分类 | 是
-POST | /api/category/add | 编辑分类分类 | 是
-POST | /api/category/delete | 删除分类 | 是
+GET | /api/blog/path/:blogId | 获取博客路径 | 是
+GET | /api/category/:parentId  | 获取某类别下的所有类别及博客 | 是
+GET | /api/category/path/:categoryId | 获取类别路径 | 是
+POST | /api/category/add | 新增分类 | 否
+POST | /api/category/add | 编辑分类分类 | 否
+POST | /api/category/delete | 删除分类 | 否
 
 ## 3. nginx 配置
 
