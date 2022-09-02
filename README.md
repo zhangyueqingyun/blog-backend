@@ -22,21 +22,22 @@ export const mysqlLocalConf: any = {
 
 ## 2. 已有接口
 
-接口 | 描述 
----- | ---- 
-/api/profile | 获取个人信息 
-/api/navigation | 获取导航信息
-/api/news | 获取最新内容 
-/api/blog/:id | 获取某一篇博客内容 
-/api/blog/add | 新增博客
-/api/blog/edit | 编辑博客
-/api/blog/delete/:id | 删除博客
-/api/blog/path/:blogId | 获取博客路径
-/api/category/:parentId  | 获取某类别下的所有类别及博客
-/api/category/path/:categoryId | 获取类别路径
-/api/category/add | 新增分类
-/api/category/add | 编辑分类分类
-/api/category/delete | 删除分类
+方法 | 接口 | 描述 | 是否需要权限
+---- | ---- | ---- | ----
+POST | /api/auth/login | 登录 | 
+GET | /api/profile | 获取个人信息 |
+GET | /api/navigation | 获取导航信息 |
+GET | /api/news | 获取最新内容 | 
+GET | /api/blog/:id | 获取某一篇博客内容 |
+POST | /api/blog/add | 新增博客 | 需要
+POST | /api/blog/edit | 编辑博客 | 需要
+POST | /api/blog/delete/:id | 删除博客 | 需要
+GET | /api/blog/path/:blogId | 获取博客路径 |
+GET | /api/category/:parentId  | 获取某类别下的所有类别及博客 | 
+GET | /api/category/path/:categoryId | 获取类别路径 | 
+POST | /api/category/add | 新增分类 | 需要
+POST | /api/category/add | 编辑分类分类 | 需要
+POST | /api/category/delete | 删除分类 | 需要
 
 ## 3. nginx 配置
 
