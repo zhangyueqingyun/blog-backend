@@ -1,5 +1,6 @@
-import { Controller, Get, Post, Param, Body } from '@nestjs/common';
-import { ResponseUtil, Response } from '@/utils/response';
+import { Controller, Get, Post, Param, Body, UseGuards  } from '@nestjs/common';
+import { ResponseUtil } from '@/utils/response';
+import { AuthGuard } from '@nestjs/passport';
 
 import { BlogService } from './service';
 
@@ -16,18 +17,21 @@ export class BlogController {
         return this.responseUtil.getResponse({data: blog})
     }
 
+    @UseGuards(AuthGuard('jwt'))
     @Post('add')
     async addBlog(@Body() createBlogDto: CreateBlogDto) {
         await this.blogService.updateBlog(createBlogDto)
         return this.responseUtil.getResponse({message: '新增成功'})
     }
 
+    @UseGuards(AuthGuard('jwt'))
     @Post('edit')
     async editBlog(@Body() createBlogDto: CreateBlogDto) {
         await this.blogService.updateBlog(createBlogDto)
         return this.responseUtil.getResponse({message: '新增成功'})
     }
 
+    @UseGuards(AuthGuard('jwt'))
     @Post('delete/:id')
     async deleteCategory(@Param('id') id: number) {
         await this.blogService.deleteBlog(id)

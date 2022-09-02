@@ -1,5 +1,6 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import { ResponseUtil, Response } from '@/utils/response';
+import { AuthGuard } from '@nestjs/passport';
 
 import { CategoryService } from '@/category/service';
 import { BlogService } from '@/blog/service';
