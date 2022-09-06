@@ -15,8 +15,8 @@ export class CategoryEntity extends BaseEntity {
     name: string
 
     @Column({
-        type: 'char',
-        name: 'icon'
+        type: 'int',
+        name: 'parentId'
     })
-    icon: string
+    parentId: number
 }

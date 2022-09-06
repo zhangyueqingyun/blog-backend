@@ -1,22 +1,15 @@
-import {Controller, Get, Post, Param, Body} from '@nestjs/common'
-import {BlogService} from '@/blog/service'
-import {ResponseUtil, Response} from '@/utils/response'
+import { Controller, Get, Post, Param, Body, UseGuards  } from '@nestjs/common';
+import { ResponseUtil } from '@/utils/response';
+import { AuthGuard } from '@nestjs/passport';
+
+import { BlogService } from './service';
 
 @Controller('blog')
 export class BlogController {
-    constructor(private readonly blogService: BlogService, private readonly responseUtil: ResponseUtil){}
-    
-    @Get('news')
-    async getCategories(): Promise<Response> {
-        const {blogs, categories, signs} = await this.blogService.getNews()
-        const categoriedBlogs = getCategoriedBlogs(blogs, signs)
-
-        const data = categories.filter(category => {
-            return !!(category.blogs = categoriedBlogs[category.id])
-        })
-
-        return this.responseUtil.getResponse({data})
-    }
+    constructor(
+        private readonly blogService: BlogService,
+        private readonly responseUtil: ResponseUtil
+    ){}
 
     @Get(':id')
     async getBlogById(@Param('id') id: number){
@@ -24,39 +17,33 @@ export class BlogController {
         return this.responseUtil.getResponse({data: blog})
     }
 
+    @UseGuards(AuthGuard('jwt'))
     @Post('add')
     async addBlog(@Body() createBlogDto: CreateBlogDto) {
-        await this.blogService.createBlog(createBlogDto)
+        await this.blogService.updateBlog(createBlogDto)
         return this.responseUtil.getResponse({message: '新增成功'})
+    }
+
+    @UseGuards(AuthGuard('jwt'))
+    @Post('edit')
+    async editBlog(@Body() createBlogDto: CreateBlogDto) {
+        await this.blogService.updateBlog(createBlogDto)
+        return this.responseUtil.getResponse({message: '新增成功'})
+    }
+
+    @UseGuards(AuthGuard('jwt'))
+    @Post('delete/:id')
+    async deleteCategory(@Param('id') id: number) {
+        await this.blogService.deleteBlog(id)
+        return this.responseUtil.getResponse({message: '删除成功'})
     }
 }
 
 interface CreateBlogDto {
-    title: String,
-    description: String,
-    datetime: String,
-    ossPath: String,
-    signIds: String,
-    categoryId: String,
+    title?: String,
+    description?: String,
+    datetime?: String,
+    ossPath?: String,
+    categoryId?: String,
     id?: number
-}
-
-function mapSignsToBlog(blog, signs){
-    const {signIds} = blog
-    delete blog.signIds
-    blog.signs = signIds.split(',').map(signId => (signs.find(sign => (sign.id == signId))))
-}
-
-function getCategoriedBlogs(blogs, signs) {
-    const categoriedBlogs = {}
-    for(let blog of blogs){
-        mapSignsToBlog(blog, signs)
-
-        const {categoryId} = blog
-        delete blog.categoryId
-        
-        categoriedBlogs[categoryId] ??= []
-        categoriedBlogs[categoryId].push(blog)
-    }
-    return categoriedBlogs
 }

@@ -1,22 +1,22 @@
 import {BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
-@Entity({name: 'sign'}) 
-export class SignEntity extends BaseEntity {
+@Entity({name: 'user'}) 
+export class UserEntity extends BaseEntity {
     @PrimaryGeneratedColumn({
         type: 'int',
         name: 'id'
     })
-    id: number
+    id: number;
 
     @Column({
         type: 'char',
-        name: 'name'
+        name: 'username'
     })
-    name: string
+    username: string;
 
     @Column({
         type: 'char',
-        name: 'icon'
+        name: 'password'
     })
-    icon: string
+    password: string;
 }

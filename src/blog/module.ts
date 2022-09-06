@@ -5,16 +5,15 @@ import {ResponseUtil} from '@/utils/response'
 import {BlogStorage} from '@/utils/oss'
 import {TypeOrmModule} from '@nestjs/typeorm'
 
-import {BlogEntity} from './entities/blog'
-import {CategoryEntity} from './entities/category'
-import {SignEntity} from './entities/sign'
+import {BlogEntity} from './entity';
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([BlogEntity, CategoryEntity, SignEntity])
+        TypeOrmModule.forFeature([BlogEntity])
     ],
     controllers: [BlogController],
-    providers: [BlogService, ResponseUtil, BlogStorage]
+    providers: [BlogService, BlogStorage, ResponseUtil],
+    exports: [BlogService]
 })
 export class BlogModule {
 
