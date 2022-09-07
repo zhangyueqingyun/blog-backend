@@ -38,6 +38,8 @@ GET | /api/category/path/:categoryId | 获取类别路径 | 否
 POST | /api/category/add | 新增分类 | 是
 POST | /api/category/add | 编辑分类分类 | 是
 POST | /api/category/delete | 删除分类 | 是
+GET | /api/blog/read/:id | 阅读某篇文章 | 否
+Get | /api/sign/all | 获取所有标签 | 否
 
 ## 3. nginx 配置
 
