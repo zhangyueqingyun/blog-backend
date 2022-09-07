@@ -13,7 +13,7 @@ export class SignController {
     ){}
 
     @Get('all')
-    async getBlogById(@Param('id') id: number){
+    async getSigns(){
         const signs = await this.signService.getAll();
         return this.responseUtil.getResponse({data: signs})
     }

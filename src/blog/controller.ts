@@ -35,7 +35,7 @@ export class BlogController {
     @Post('edit')
     async editBlog(@Body() createBlogDto: CreateBlogDto) {
         await this.blogService.updateBlog(createBlogDto)
-        return this.responseUtil.getResponse({message: '新增成功'})
+        return this.responseUtil.getResponse({message: '编辑成功'})
     }
 
     @UseGuards(AuthGuard('jwt'))

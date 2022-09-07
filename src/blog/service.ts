@@ -32,7 +32,7 @@ export class BlogService {
         const content = await this.blogStorage.get(result.ossPath)
         return {
             ...result,
-            content: content.toString()
+            content: content?.toString() || ''
         }
     }
 

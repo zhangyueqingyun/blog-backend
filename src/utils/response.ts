@@ -8,7 +8,7 @@ export interface Response {
 
 @Injectable() 
 export class ResponseUtil  {
-    getResponse(response?: Response): Response{
+    getResponse(response : Response = {}): Response{
         const {data, code = 20000, message = '请求成功'} = response
         return { code, message, data }
     }
