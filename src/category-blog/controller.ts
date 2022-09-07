@@ -1,5 +1,6 @@
 import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import { ResponseUtil, Response } from '@/utils/response';
+// @ts-ignore
 import { AuthGuard } from '@nestjs/passport';
 
 import { CategoryService } from '@/category/service';

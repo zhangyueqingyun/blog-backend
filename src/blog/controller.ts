@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Param, Body, UseGuards  } from '@nestjs/common';
 import { ResponseUtil } from '@/utils/response';
+// @ts-ignore
 import { AuthGuard } from '@nestjs/passport';
 
 import { BlogService } from './service';
@@ -10,6 +11,12 @@ export class BlogController {
         private readonly blogService: BlogService,
         private readonly responseUtil: ResponseUtil
     ){}
+
+    @Get('read/:id')
+    async read(@Param('id') id: number){
+        await this.blogService.read(id);
+        return this.responseUtil.getResponse();
+    }
 
     @Get(':id')
     async getBlogById(@Param('id') id: number){

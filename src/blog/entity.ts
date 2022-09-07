@@ -22,7 +22,7 @@ export class BlogEntity extends BaseEntity {
 
     @Column({
         type: 'char',
-        name: 'ossPath'
+        name: 'oss_path'
     })
     ossPath: string;
     
@@ -33,14 +33,20 @@ export class BlogEntity extends BaseEntity {
     datetime: string;
 
     @Column({
-        type: 'char',
-        name: 'signIds'
+        type: 'int',
+        name: 'sign_id'
     })
-    signIds: string;
+    signId: number;
     
     @Column({
         type: 'int',
-        name: 'categoryId'
+        name: 'category_id'
     })
     categoryId: number;
+
+    @Column({
+        type: 'int',
+        name: 'reading_amount'
+    })
+    readingAmount: number;
 }

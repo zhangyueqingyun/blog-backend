@@ -12,6 +12,12 @@ export class BlogService {
         private readonly blogStorage: BlogStorage
     ){}
 
+    async read(id: number): Promise<any> {
+        const blog = await this.blogRepository.findOne({where: {id}});
+        blog.readingAmount++;
+        await this.blogRepository.save(blog);
+    }
+
     async getNews(): Promise<any>{
         return this.blogRepository.find()
     }
