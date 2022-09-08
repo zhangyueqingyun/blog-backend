@@ -19,7 +19,11 @@ export class BlogService {
     }
 
     async getNews(): Promise<any>{
-        return this.blogRepository.find()
+        return this.blogRepository
+            .createQueryBuilder('blog')
+            .orderBy('blog.id', 'DESC')
+            .limit(10)
+            .getMany();
     }
 
     async updateBlog(createBlogDto) {
